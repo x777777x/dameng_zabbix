@@ -1,0 +1,1080 @@
+zabbix_export:
+  version: '5.4'
+  date: '2022-01-27T06:59:10Z'
+  groups:
+    -
+      uuid: 748ad4d098d447d492bb935c907f652f
+      name: Templates/Databases
+  templates:
+    -
+      uuid: c83aa37598884dcfa3d65f68693ea2b0
+      template: 'Dameng Database by Zabbix agent'
+      name: 'Dameng Database by Zabbix agent'
+      description: 'author: JiangXu'
+      groups:
+        -
+          name: Templates/Databases
+      items:
+        -
+          uuid: 0a68e305e23d4021b51b1c58a76f7a2f
+          name: 'Connections: active'
+          type: DEPENDENT
+          key: dm.connections.active
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.active
+          master_item:
+            key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 492141ba349a41bcbd6174854afd2b3e
+          name: 'Connections: create'
+          type: DEPENDENT
+          key: dm.connections.create
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.create
+          master_item:
+            key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 7df15e19ff72452699b48ddd9a198a06
+          name: 'Connections: idle'
+          type: DEPENDENT
+          key: dm.connections.idle
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.idle
+          master_item:
+            key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 86829425e38d4956b20875b0cc602772
+          name: 'Connections: startup'
+          type: DEPENDENT
+          key: dm.connections.startup
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.startup
+          master_item:
+            key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: e59a6f6a570e40f58b9e2ddf4e08e249
+          name: 'Connections: unknow'
+          type: DEPENDENT
+          key: dm.connections.unknow
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.unknow
+          master_item:
+            key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 05a5496501aa45e59ebdc19bbe74638b
+          name: 'Connections: wait'
+          type: DEPENDENT
+          key: dm.connections.wait
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.wait
+          master_item:
+            key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 1f285ff6f3a844a98423fa77d8a2897c
+          name: 'Stat: Connect'
+          key: 'dm.connections["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 48h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw items'
+        -
+          uuid: ae3606d53274402f965259c9d6558eb4
+          name: 'Status: Role'
+          key: 'dm.dbrole["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          valuemap:
+            name: 'DM database role'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: a6cebf08fffa4cf9a955f2bc97fb587c
+          name: 'Status: Database Status'
+          key: 'dm.dbstatus["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          valuemap:
+            name: 'DM database status'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+          triggers:
+            -
+              uuid: d1ae1aa75098436cb929cb3ff5df7af9
+              expression: 'last(/Dameng Database by Zabbix agent/dm.dbstatus["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]) <> 4'
+              name: 'Dameng: DB Status {ITEM.LASTVALUE}'
+              priority: HIGH
+        -
+          uuid: e45daf7e4c104b5baa93a836cb36523a
+          name: 'Status: Database Watcher Status'
+          key: 'dm.dbwatcher["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          status: DISABLED
+          valuemap:
+            name: 'Service state'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+          triggers:
+            -
+              uuid: 550a5365dfd0427b8948d2c7fce160fe
+              expression: 'last(/Dameng Database by Zabbix agent/dm.dbwatcher["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]) <> 1'
+              name: 'Dameng: DBWatcher Status {ITEM.LASTVALUE}'
+              priority: AVERAGE
+        -
+          uuid: 960259650d484f0686af649eb54a9f6a
+          name: 'IO: Logic Read Count'
+          type: DEPENDENT
+          key: dm.io.logic_read
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''logic read count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 4073e041ce764a008347939ad4a2a252
+          name: 'IO: Log Write Bytes'
+          type: DEPENDENT
+          key: dm.io.log_write
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''log write bytes'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 16f23a61cff248ac91be16b55580ff24
+          name: 'IO: Physical Multi Read Count'
+          type: DEPENDENT
+          key: dm.io.physical_multi_read
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''physical multi read count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: cbc215feaef948a4aa3aa22c28582240
+          name: 'IO: Physical Read Count'
+          type: DEPENDENT
+          key: dm.io.physical_read
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''physical read count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 99c3a174771b40849db006ec3e08ef2e
+          name: 'IO: Physical Write Count'
+          type: DEPENDENT
+          key: dm.io.physical_write
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''physical write count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 0151dbfda68041df9bf4d7de26ba45ee
+          name: 'IO: Recycle Logic Read Count'
+          type: DEPENDENT
+          key: dm.io.recycle_logic_read
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''recycle logic read count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 50e00c15118345dc94d4ac4a6b5e5825
+          name: 'IO: Recycle Physical Read Count'
+          type: DEPENDENT
+          key: dm.io.recycle_physical_read
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''recycle physical read count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 22445de52fe1450198ca08904f3e0eb1
+          name: 'IO: Recycle Physical Write Count'
+          type: DEPENDENT
+          key: dm.io.recycle_physical_write
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''recycle physical write count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: f3539f628e194d62aa17dd6663d74394
+          name: 'Status: License Status'
+          key: 'dm.license["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          valuemap:
+            name: 'Service License Expire'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+          triggers:
+            -
+              uuid: d4653a49f61d405889630e15ac5b4c67
+              expression: 'last(/Dameng Database by Zabbix agent/dm.license["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]) <> 0'
+              name: 'Dameng: License will expire'
+              priority: HIGH
+        -
+          uuid: 0be810ea328c48438c5ca868ca205ff6
+          name: 'Memory: Memory Pool Size'
+          type: DEPENDENT
+          key: dm.mem.pool_size
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''memory used bytes'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statmem["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 54edfdf6754e42ae8e299f5cec5db308
+          name: 'Memory: Used Bytes'
+          type: DEPENDENT
+          key: dm.mem.used
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''memory used bytes'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statmem["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 32348cd246824fd2ae725d72ac46d1d8
+          name: 'Network: MAL Bytes Received'
+          type: DEPENDENT
+          key: dm.network.mal.received
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''total mail bytes received'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statnet["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 2a9873f69ac94cc7a1b4651e0ee631f7
+          name: 'Network: MAL Bytes Sent'
+          type: DEPENDENT
+          key: dm.network.mal.sent
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''total mail bytes sent'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statnet["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: aa7c878313784ca1898857b58a523d5a
+          name: 'Network: Bytes Received'
+          type: DEPENDENT
+          key: dm.network.total.received
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''total bytes received from client'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statnet["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: fd14bd1c65f04860a3ef46eaeeec1d1e
+          name: 'Network: Bytes Sent'
+          type: DEPENDENT
+          key: dm.network.total.sent
+          delay: '0'
+          history: 7d
+          units: Bytes
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''total bytes sent to client'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statnet["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 4a0efe4bb77b4f1aa5cbddee847a7f21
+          name: 'Status: Ping'
+          key: 'dm.ping["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 30d
+          trends: '0'
+          value_type: CHAR
+          valuemap:
+            name: 'Service state'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+          triggers:
+            -
+              uuid: a7284c81084b40859ec2d5de97ec0e28
+              expression: 'last(/Dameng Database by Zabbix agent/dm.ping["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]) <> 1'
+              name: 'Dameng: Service is down'
+              priority: HIGH
+        -
+          uuid: 3c7427ec90c941e0b89dace44846fd51
+          name: 'Statements: ddl'
+          type: DEPENDENT
+          key: dm.statements.ddl
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''ddl statements'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statsql["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 49f2ba060edb4134a13b535bae8cbd39
+          name: 'Statements: delete'
+          type: DEPENDENT
+          key: dm.statements.delete
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''delete statements'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statsql["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 5cf3499541ff44c4b134f2c935afda60
+          name: 'Statements: insert'
+          type: DEPENDENT
+          key: dm.statements.insert
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''insert statements'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statsql["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 4a9b6cb1bf7f46138ff411bf9c2fb039
+          name: 'Statements: select'
+          type: DEPENDENT
+          key: dm.statements.select
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''select statements'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statsql["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 642c6befd4cd472d85e8f845503d4037
+          name: 'Statements: update'
+          type: DEPENDENT
+          key: dm.statements.update
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''update statements'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.statsql["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: f3537f845c664b278a9c0581e0f82a89
+          name: 'Stat: IO'
+          key: 'dm.statio["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 48h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw items'
+        -
+          uuid: 37a9381f999d40ebad6787634a57ea9b
+          name: 'Stat: Memory'
+          key: 'dm.statmem["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 48h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw items'
+        -
+          uuid: fbcdd76ec310472c8fdca271414cea2a
+          name: 'Stat: Net'
+          key: 'dm.statnet["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 48h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw items'
+        -
+          uuid: cca3710b0f154932bce90f5401a83bf8
+          name: 'Stat: SQL'
+          key: 'dm.statsql["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 48h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw items'
+        -
+          uuid: 40144b19ddf74f01880e6f55bac836b2
+          name: 'Stat: Trx'
+          key: 'dm.stattrx["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          history: 48h
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: Application
+              value: 'Zabbix raw items'
+        -
+          uuid: 3223dacfca5f4936be30b968162f63bc
+          name: 'Trx: Commit Count'
+          type: DEPENDENT
+          key: dm.trx.commit_count
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''transaction commit count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.stattrx["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 03f17ce17e814787838fadc4bef3c584
+          name: 'Trx: Deadlock Count'
+          type: DEPENDENT
+          key: dm.trx.deadlock_count
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''transaction deadlock count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.stattrx["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 8e1a370635044f79bf6137cdf9310afe
+          name: 'Trx: Lock Waits'
+          type: DEPENDENT
+          key: dm.trx.lock_waits
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''transaction lock waits'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.stattrx["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: b224c21cb9f742c3b1f4aa72118d3702
+          name: 'Trx: Rollback Count'
+          type: DEPENDENT
+          key: dm.trx.rollback_count
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''transaction rollback count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.stattrx["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+        -
+          uuid: 3e3590121bee4e49aa0bcaf2994194c7
+          name: 'Trx: Total Count'
+          type: DEPENDENT
+          key: dm.trx.total_count
+          delay: '0'
+          history: 7d
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''transaction total count'']'
+            -
+              type: SIMPLE_CHANGE
+              parameters:
+                - ''
+          master_item:
+            key: 'dm.stattrx["{$DM.USER}","{$DM.PASSWD}","{$DM.HOST}","{$DM.PORT}"]'
+          tags:
+            -
+              tag: Application
+              value: Dameng
+      macros:
+        -
+          macro: '{$DM.HOST}'
+          value: localhost
+        -
+          macro: '{$DM.PASSWD}'
+          value: passwd
+        -
+          macro: '{$DM.PORT}'
+          value: '5236'
+        -
+          macro: '{$DM.USER}'
+          value: ZB_MONITOR
+      valuemaps:
+        -
+          uuid: 77506a3ee2714f05bcd78b6f485e727a
+          name: 'DM database role'
+          mappings:
+            -
+              value: '0'
+              newvalue: NORMAL
+            -
+              value: '1'
+              newvalue: PRIMARY
+            -
+              value: '2'
+              newvalue: STANDBY
+        -
+          uuid: 7b708cbe92cf4aa089faedd08dbc7482
+          name: 'DM database status'
+          mappings:
+            -
+              value: '1'
+              newvalue: STARTUP
+            -
+              value: '2'
+              newvalue: AFTER_REDO
+            -
+              value: '3'
+              newvalue: MOUNT
+            -
+              value: '4'
+              newvalue: OPEN
+            -
+              value: '5'
+              newvalue: SUSPEND
+            -
+              value: '6'
+              newvalue: SHUTDOWN
+        -
+          uuid: 74edf7e59402434bac710e10d431a8e6
+          name: 'Service License Expire'
+          mappings:
+            -
+              value: '1'
+              newvalue: 'Expire Risk'
+            -
+              value: '0'
+              newvalue: 'Not Expire Risk'
+        -
+          uuid: 1c8afb954435418d9baf60d8afa499c0
+          name: 'Service state'
+          mappings:
+            -
+              value: '0'
+              newvalue: Down
+            -
+              value: '1'
+              newvalue: Up
+  graphs:
+    -
+      uuid: c5aff76bc6ee414a91cd47bb060b517e
+      name: 'Dameng Connections'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.connections.active
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.connections.create
+        -
+          sortorder: '3'
+          color: 2774A4
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.connections.idle
+        -
+          sortorder: '4'
+          color: A54F10
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.connections.startup
+        -
+          sortorder: '5'
+          color: FC6EA3
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.connections.unknow
+        -
+          sortorder: '6'
+          color: 6C59DC
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.connections.wait
+    -
+      uuid: 99d8a0ee872148179e47b70951776da6
+      name: 'Dameng IO Log Write'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.log_write
+    -
+      uuid: 6a8915047f384cd1ab995d1112dce769
+      name: 'Dameng IO Read/Write Count'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.logic_read
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.physical_multi_read
+        -
+          sortorder: '3'
+          color: 2774A4
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.physical_read
+        -
+          sortorder: '4'
+          color: A54F10
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.physical_write
+        -
+          sortorder: '5'
+          color: FC6EA3
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.recycle_logic_read
+        -
+          sortorder: '6'
+          color: 6C59DC
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.recycle_physical_read
+        -
+          sortorder: '7'
+          color: AC8C14
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.io.recycle_physical_write
+    -
+      uuid: b4b53c876edf47dcae5c99ed25767c4e
+      name: 'Dameng Memory'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.mem.pool_size
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.mem.used
+    -
+      uuid: 5cfa3337e1004acd94ff0581333c613b
+      name: 'Dameng Network'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.network.total.received
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.network.total.sent
+    -
+      uuid: b9bca75ef1d14aba89858c585fbad95e
+      name: 'Dameng Network MAL'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.network.mal.received
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.network.mal.sent
+    -
+      uuid: 9d0aa91b5f064189a2c5f7c21f06a48b
+      name: 'Dameng Statements'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.statements.ddl
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.statements.delete
+        -
+          sortorder: '3'
+          color: 2774A4
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.statements.insert
+        -
+          sortorder: '4'
+          color: A54F10
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.statements.select
+        -
+          sortorder: '5'
+          color: FC6EA3
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.statements.update
+    -
+      uuid: 25ceccdb1534473a93591789da9657cc
+      name: 'Dameng Transaction'
+      graph_items:
+        -
+          sortorder: '1'
+          color: 1A7C11
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.trx.commit_count
+        -
+          sortorder: '2'
+          color: F63100
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.trx.deadlock_count
+        -
+          sortorder: '3'
+          color: 2774A4
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.trx.rollback_count
+        -
+          sortorder: '4'
+          color: A54F10
+          item:
+            host: 'Dameng Database by Zabbix agent'
+            key: dm.trx.total_count

@@ -1,0 +1,1403 @@
+{
+    "zabbix_export": {
+        "version": "5.2",
+        "date": "2022-01-27T06:35:12Z",
+        "groups": [
+            {
+                "name": "Templates/Databases"
+            }
+        ],
+        "templates": [
+            {
+                "template": "Dameng Database by Zabbix agent",
+                "name": "Dameng Database by Zabbix agent",
+                "description": "author: JiangXu",
+                "groups": [
+                    {
+                        "name": "Templates/Databases"
+                    }
+                ],
+                "applications": [
+                    {
+                        "name": "Dameng"
+                    },
+                    {
+                        "name": "Zabbix raw items"
+                    }
+                ],
+                "items": [
+                    {
+                        "name": "Connections: active",
+                        "type": "DEPENDENT",
+                        "key": "dm.connections.active",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.active"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Connections: create",
+                        "type": "DEPENDENT",
+                        "key": "dm.connections.create",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.create"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Connections: idle",
+                        "type": "DEPENDENT",
+                        "key": "dm.connections.idle",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.idle"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Connections: startup",
+                        "type": "DEPENDENT",
+                        "key": "dm.connections.startup",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.startup"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Connections: unknow",
+                        "type": "DEPENDENT",
+                        "key": "dm.connections.unknow",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.unknow"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Connections: wait",
+                        "type": "DEPENDENT",
+                        "key": "dm.connections.wait",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$.wait"
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Stat: Connect",
+                        "key": "dm.connections[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "48h",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "applications": [
+                            {
+                                "name": "Zabbix raw items"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Status: Role",
+                        "key": "dm.dbrole[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "valuemap": {
+                            "name": "Dameng Database Role"
+                        }
+                    },
+                    {
+                        "name": "Status: Database Status",
+                        "key": "dm.dbstatus[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "valuemap": {
+                            "name": "Dameng Database Status"
+                        },
+                        "triggers": [
+                            {
+                                "expression": "{last()}<>4",
+                                "name": "Dameng: DB Status {ITEM.LASTVALUE}",
+                                "priority": "HIGH"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Status: Database Watcher Status",
+                        "key": "dm.dbwatcher[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "valuemap": {
+                            "name": "Dameng Service State"
+                        },
+                        "triggers": [
+                            {
+                                "expression": "{last()}<>1",
+                                "name": "Dameng: DBWatcher Status {ITEM.LASTVALUE}",
+                                "priority": "AVERAGE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "IO: Logic Read Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.logic_read",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['logic read count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Log Write Bytes",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.log_write",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['log write bytes']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Physical Multi Read Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.physical_multi_read",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['physical multi read count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Physical Read Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.physical_read",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['physical read count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Physical Write Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.physical_write",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['physical write count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Recycle Logic Read Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.recycle_logic_read",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['recycle logic read count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Recycle Physical Read Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.recycle_physical_read",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['recycle physical read count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "IO: Recycle Physical Write Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.io.recycle_physical_write",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['recycle physical write count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Status: License Status",
+                        "key": "dm.license[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "valuemap": {
+                            "name": "Dameng License Expire"
+                        },
+                        "triggers": [
+                            {
+                                "expression": "{last()}<>0",
+                                "name": "Dameng: License Will Expire",
+                                "priority": "HIGH"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Memory: Memory Pool Size",
+                        "type": "DEPENDENT",
+                        "key": "dm.mem.pool_size",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['memory used bytes']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statmem[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Memory: Used Bytes",
+                        "type": "DEPENDENT",
+                        "key": "dm.mem.used",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['memory used bytes']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statmem[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Network: MAL Bytes Received",
+                        "type": "DEPENDENT",
+                        "key": "dm.network.mal.received",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['total mail bytes received']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statnet[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Network: MAL Bytes Sent",
+                        "type": "DEPENDENT",
+                        "key": "dm.network.mal.sent",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['total mail bytes sent']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statnet[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Network: Bytes Received",
+                        "type": "DEPENDENT",
+                        "key": "dm.network.total.received",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['total bytes received from client']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statnet[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Network: Bytes Sent",
+                        "type": "DEPENDENT",
+                        "key": "dm.network.total.sent",
+                        "delay": "0",
+                        "history": "7d",
+                        "units": "Bytes",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['total bytes sent to client']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statnet[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Status: Ping",
+                        "key": "dm.ping[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "30d",
+                        "trends": "0",
+                        "value_type": "CHAR",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "valuemap": {
+                            "name": "Dameng Service State"
+                        },
+                        "triggers": [
+                            {
+                                "expression": "{last()}<>1",
+                                "name": "Dameng: Service is Down",
+                                "priority": "DISASTER"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Statements: ddl",
+                        "type": "DEPENDENT",
+                        "key": "dm.statements.ddl",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['ddl statements']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statsql[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Statements: delete",
+                        "type": "DEPENDENT",
+                        "key": "dm.statements.delete",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['delete statements']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statsql[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Statements: insert",
+                        "type": "DEPENDENT",
+                        "key": "dm.statements.insert",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['insert statements']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statsql[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Statements: select",
+                        "type": "DEPENDENT",
+                        "key": "dm.statements.select",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['select statements']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statsql[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Statements: update",
+                        "type": "DEPENDENT",
+                        "key": "dm.statements.update",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['update statements']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.statsql[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Stat: IO",
+                        "key": "dm.statio[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "48h",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "applications": [
+                            {
+                                "name": "Zabbix raw items"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Stat: Memory",
+                        "key": "dm.statmem[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "48h",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "applications": [
+                            {
+                                "name": "Zabbix raw items"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Stat: Net",
+                        "key": "dm.statnet[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "48h",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "applications": [
+                            {
+                                "name": "Zabbix raw items"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Stat: SQL",
+                        "key": "dm.statsql[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "48h",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "applications": [
+                            {
+                                "name": "Zabbix raw items"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Stat: Trx",
+                        "key": "dm.stattrx[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]",
+                        "history": "48h",
+                        "trends": "0",
+                        "value_type": "TEXT",
+                        "applications": [
+                            {
+                                "name": "Zabbix raw items"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Trx: Commit Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.trx.commit_count",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['transaction commit count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.stattrx[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Trx: Deadlock Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.trx.deadlock_count",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['transaction deadlock count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.stattrx[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Trx: Lock Waits",
+                        "type": "DEPENDENT",
+                        "key": "dm.trx.lock_waits",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['transaction lock waits']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.stattrx[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Trx: Rollback Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.trx.rollback_count",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['transaction rollback count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.stattrx[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    },
+                    {
+                        "name": "Trx: Total Count",
+                        "type": "DEPENDENT",
+                        "key": "dm.trx.total_count",
+                        "delay": "0",
+                        "history": "7d",
+                        "applications": [
+                            {
+                                "name": "Dameng"
+                            }
+                        ],
+                        "preprocessing": [
+                            {
+                                "type": "JSONPATH",
+                                "parameters": [
+                                    "$['transaction total count']"
+                                ]
+                            },
+                            {
+                                "type": "SIMPLE_CHANGE",
+                                "parameters": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "master_item": {
+                            "key": "dm.stattrx[\"{$DM.USER}\",\"{$DM.PASSWD}\",\"{$DM.HOST}\",\"{$DM.PORT}\"]"
+                        }
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$DM.HOST}",
+                        "value": "localhost"
+                    },
+                    {
+                        "macro": "{$DM.PASSWD}",
+                        "value": "passwd"
+                    },
+                    {
+                        "macro": "{$DM.PORT}",
+                        "value": "5236"
+                    },
+                    {
+                        "macro": "{$DM.USER}",
+                        "value": "ZB_MONITOR"
+                    }
+                ]
+            }
+        ],
+        "graphs": [
+            {
+                "name": "Dameng Connections",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.connections.active"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.connections.create"
+                        }
+                    },
+                    {
+                        "sortorder": "3",
+                        "color": "2774A4",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.connections.idle"
+                        }
+                    },
+                    {
+                        "sortorder": "4",
+                        "color": "A54F10",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.connections.startup"
+                        }
+                    },
+                    {
+                        "sortorder": "5",
+                        "color": "FC6EA3",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.connections.unknow"
+                        }
+                    },
+                    {
+                        "sortorder": "6",
+                        "color": "6C59DC",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.connections.wait"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng IO Log Write",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.log_write"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng IO Read/Write Count",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.logic_read"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.physical_multi_read"
+                        }
+                    },
+                    {
+                        "sortorder": "3",
+                        "color": "2774A4",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.physical_read"
+                        }
+                    },
+                    {
+                        "sortorder": "4",
+                        "color": "A54F10",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.physical_write"
+                        }
+                    },
+                    {
+                        "sortorder": "5",
+                        "color": "FC6EA3",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.recycle_logic_read"
+                        }
+                    },
+                    {
+                        "sortorder": "6",
+                        "color": "6C59DC",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.recycle_physical_read"
+                        }
+                    },
+                    {
+                        "sortorder": "7",
+                        "color": "AC8C14",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.io.recycle_physical_write"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Memory",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.mem.pool_size"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.mem.used"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Network",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.network.total.received"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.network.total.sent"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Network MAL",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.network.mal.received"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.network.mal.sent"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Statements",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.statements.ddl"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.statements.delete"
+                        }
+                    },
+                    {
+                        "sortorder": "3",
+                        "color": "2774A4",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.statements.insert"
+                        }
+                    },
+                    {
+                        "sortorder": "4",
+                        "color": "A54F10",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.statements.select"
+                        }
+                    },
+                    {
+                        "sortorder": "5",
+                        "color": "FC6EA3",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.statements.update"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Transaction",
+                "graph_items": [
+                    {
+                        "sortorder": "1",
+                        "color": "1A7C11",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.trx.commit_count"
+                        }
+                    },
+                    {
+                        "sortorder": "2",
+                        "color": "F63100",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.trx.deadlock_count"
+                        }
+                    },
+                    {
+                        "sortorder": "3",
+                        "color": "2774A4",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.trx.rollback_count"
+                        }
+                    },
+                    {
+                        "sortorder": "4",
+                        "color": "A54F10",
+                        "item": {
+                            "host": "Dameng Database by Zabbix agent",
+                            "key": "dm.trx.total_count"
+                        }
+                    }
+                ]
+            }
+        ],
+        "value_maps": [
+            {
+                "name": "Dameng Database Role",
+                "mappings": [
+                    {
+                        "value": "0",
+                        "newvalue": "NORMAL"
+                    },
+                    {
+                        "value": "1",
+                        "newvalue": "PRIMARY"
+                    },
+                    {
+                        "value": "2",
+                        "newvalue": "STANDBY"
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Database Status",
+                "mappings": [
+                    {
+                        "value": "1",
+                        "newvalue": "STARTUP"
+                    },
+                    {
+                        "value": "2",
+                        "newvalue": "AFTER_REDO"
+                    },
+                    {
+                        "value": "3",
+                        "newvalue": "MOUNT"
+                    },
+                    {
+                        "value": "4",
+                        "newvalue": "OPEN"
+                    },
+                    {
+                        "value": "5",
+                        "newvalue": "SUSPEND"
+                    },
+                    {
+                        "value": "6",
+                        "newvalue": "SHUTDOWN"
+                    }
+                ]
+            },
+            {
+                "name": "Dameng License Expire",
+                "mappings": [
+                    {
+                        "value": "0",
+                        "newvalue": "Not Expire Risk"
+                    },
+                    {
+                        "value": "1",
+                        "newvalue": "Expire Risk"
+                    }
+                ]
+            },
+            {
+                "name": "Dameng Service State",
+                "mappings": [
+                    {
+                        "value": "0",
+                        "newvalue": "Down"
+                    },
+                    {
+                        "value": "1",
+                        "newvalue": "Up"
+                    }
+                ]
+            }
+        ]
+    }
+}
